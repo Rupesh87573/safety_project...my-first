@@ -2,11 +2,12 @@ from flask import Flask, request, render_template
 import smtplib
 from email.message import EmailMessage
 import base64
+import os
 
 app = Flask(__name__)
 
-EMAIL_ADDRESS = "kumarrupesh829119@gmail.com"
-EMAIL_PASSWORD = "Yuvi@8757"
+EMAIL_ADDRESS = os.environ.get("kumarrupesh829119@gmail.com")
+EMAIL_PASSWORD = os.environ.get("Yuvi@8757")
 
 @app.route('/')
 def index():
