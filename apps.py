@@ -6,7 +6,7 @@ import base64
 app = Flask(__name__)
 
 EMAIL_ADDRESS = "kumarrupesh829119@gmail.com"
-EMAIL_PASSWORD = "Yuvi@1234"
+EMAIL_PASSWORD = "Yuvi@8757"
 
 @app.route('/')
 def index():
